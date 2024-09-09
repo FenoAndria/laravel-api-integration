@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace FenoAndria\LaravelApiIntegration\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelApiIntegrationCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-api-integration';
 
     public $description = 'My command';
 
