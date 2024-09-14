@@ -1,84 +1,105 @@
-# This is my package laravel-api-integration
+# API Integration Package for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/fenoandria/laravel-api-integration.svg?style=flat-square)](https://packagist.org/packages/fenoandria/laravel-api-integration)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/fenoandria/laravel-api-integration/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/fenoandria/laravel-api-integration/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/fenoandria/laravel-api-integration/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/fenoandria/laravel-api-integration/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/fenoandria/laravel-api-integration.svg?style=flat-square)](https://packagist.org/packages/fenoandria/laravel-api-integration)
+This package provides a flexible and extendable API client to interact with any external APIs by dynamically configuring base URLs, API keys, and handling HTTP requests. It's built for Laravel using Spatie's package template and is designed to integrate with various third-party services.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+## Features
 
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-api-integration.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-api-integration)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+    **Dynamic Configuration**: Supports environment-based API configuration (base URL, API key).
+    **Flexible HTTP Methods**: Allows GET, POST, PUT, DELETE requests with ease.
+    **Extensible Design**: Easily add support for new APIs without altering the core package.
+    **Service Container Integration**: Uses Laravel's service container for dependency injection and flexibility.
+    **Mockable for Testing**: Easily test API responses with Guzzle mock handlers.
 
 ## Installation
 
-You can install the package via composer:
+    composer require fenoandria/laravel-api-integration:dev-main
 
-```bash
-composer require fenoandria/laravel-api-integration
-```
+### Publish the Configuration
 
-You can publish and run the migrations with:
+After installation, publish the configuration file:
 
-```bash
-php artisan vendor:publish --tag="laravel-api-integration-migrations"
-php artisan migrate
-```
+php artisan vendor:publish --provider="FenoAndria\LaravelApiIntegration\LaravelApiIntegrationServiceProvider"
 
-You can publish the config file with:
+This will create the config/api-integration.php file, where you can set your API base URL and key.
 
-```bash
-php artisan vendor:publish --tag="laravel-api-integration-config"
-```
+Configure the .env file
 
-This is the contents of the published config file:
+Add your API credentials in your .env file:
 
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-api-integration-views"
-```
+    **API_BASE_URL**=https://api.yourservice.com
+    **API_KEY**=your-api-key
 
 ## Usage
+Via the Service Container
 
-```php
-$laravelApiIntegration = new FenoAndria\LaravelApiIntegration();
-echo $laravelApiIntegration->echoPhrase('Hello, FenoAndria!');
-```
+- You can inject the ApiClient into your services, controllers, or jobs via Laravel's service container:
 
-## Testing
+$apiClient = app(ApiClient::class);
 
-```bash
-composer test
-```
+$response = $apiClient->get('your-endpoint', ['param' => 'value']);
 
-## Changelog
+dd($response);
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+- Manual Instantiation
 
+For simple use cases, you can instantiate the ApiClient manually:
+
+$apiClient = new ApiClient('https://api.yourservice.com', 'your-api-key');
+
+$response = $apiClient->get('your-endpoint', ['param' => 'value']);
+
+dd($response);
+
+### Handling Requests
+
+The ApiClient supports the common HTTP methods:
+
+    GET request:
+
+    $response = $apiClient->get('endpoint', ['param' => 'value']);
+
+POST request:
+
+$response = $apiClient->post('endpoint', ['param' => 'value']);
+
+PUT request:
+
+$response = $apiClient->put('endpoint', ['param' => 'value']);
+
+DELETE request:
+
+    $response = $apiClient->delete('endpoint');
+
+### Testing
+
+The package includes PHPUnit tests. To run tests, ensure that you have a .env.testing file configured if your package relies on environment variables.
+
+You can mock HTTP requests using Guzzle's mock handler in your tests. Here's an example:
+
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\HandlerStack;
+use FenoAndria\LaravelApiIntegration\Services\ApiClient;
+
+$mock = new MockHandler([
+    new Response(200, [], json_encode(['data' => 'mocked data']))
+]);
+
+$handlerStack = HandlerStack::create($mock);
+$httpClient = new \GuzzleHttp\Client(['handler' => $handlerStack]);
+
+$apiClient = new ApiClient('https://api.mockservice.com', 'mock-api-key', $httpClient);
+
+$response = $apiClient->get('endpoint');
+
+$this->assertEquals('mocked data', $response['data']);
+
+## Extending the Package
+
+You can extend this package to support additional APIs by adding more methods or modifying the existing service class to suit your needs.
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Feel free to fork this package and contribute by submitting pull requests. Any suggestions for improvements are welcome!
+License
 
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
-
-## Credits
-
-- [FenoAndria](https://github.com/FenoAndria)
-- [All Contributors](../../contributors)
-
-## License
-
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+This package is open-sourced software licensed under the MIT license.
