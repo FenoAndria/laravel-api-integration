@@ -2,9 +2,9 @@
 
 namespace FenoAndria\LaravelApiIntegration\Tests;
 
+use FenoAndria\LaravelApiIntegration\LaravelApiIntegrationServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use FenoAndria\LaravelApiIntegration\LaravelApiIntegrationServiceProvider;
 
 class TestCase extends Orchestra
 {
