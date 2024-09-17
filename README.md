@@ -1,15 +1,14 @@
 # API Integration Package for Laravel
 
 This package provides a flexible and extendable API client to interact with any external APIs by dynamically configuring base URLs, API keys, and handling HTTP requests. It's built for Laravel using Spatie's package template and is designed to integrate with various third-party services.
-This package provides a flexible and extendable API client to interact with any external APIs by dynamically configuring base URLs, API keys, and handling HTTP requests. It's built for Laravel using Spatie's package template and is designed to integrate with various third-party services.
 
 ## Features
 
-    **Dynamic Configuration** : Supports environment-based API configuration (base URL, API key).
-    **Flexible HTTP Methods** : Allows GET, POST, PUT, DELETE requests with ease.
-    **Extensible Design** : Easily add support for new APIs without altering the core package.
-    **Service Container Integration** : Uses Laravel's service container for dependency injection and flexibility.
-    **Mockable for Testing** : Easily test API responses with Guzzle mock handlers.
+**Dynamic Configuration** : Supports environment-based API configuration (base URL, API key).
+**Flexible HTTP Methods** : Allows GET, POST, PUT, DELETE requests with ease.
+**Extensible Design** : Easily add support for new APIs without altering the core package.
+**Service Container Integration** : Uses Laravel's service container for dependency injection and flexibility.
+**Mockable for Testing** : Easily test API responses with Guzzle mock handlers.
 
 ## Installation
 
@@ -19,7 +18,7 @@ This package provides a flexible and extendable API client to interact with any 
 
 After installation, publish the configuration file:
 
-php artisan vendor:publish --provider="FenoAndria\LaravelApiIntegration\LaravelApiIntegrationServiceProvider"
+    php artisan vendor:publish --provider="FenoAndria\LaravelApiIntegration\LaravelApiIntegrationServiceProvider"
 
 This will create the config/api-integration.php file, where you can set your API base URL and key.
 
@@ -27,8 +26,8 @@ Configure the .env file
 
 Add your API credentials in your .env file:
 
-    **API_BASE_URL** = https://api.yourservice.com
-    **API_KEY** = your-api-key
+**API_BASE_URL** = https://api.yourservice.com
+**API_KEY** = your-api-key
 
 ## Usage
 Via the Service Container
@@ -57,27 +56,27 @@ dd($response);
 
 The ApiClient supports the common HTTP methods:
 
-    GET request:
+**GET request:**
 ```php
-    $response = $apiClient->get('endpoint', ['param' => 'value']);
+$response = $apiClient->get('endpoint', ['param' => 'value']);
 ```
 
-POST request:
+**POST request:**
 
 ```php
 $response = $apiClient->post('endpoint', ['param' => 'value']);
 ```
 
-PUT request:
+**PUT request:**
 
 ```php
 $response = $apiClient->put('endpoint', ['param' => 'value']);
 ```
 
-DELETE request:
+**DELETE request:**
 
 ```php
-    $response = $apiClient->delete('endpoint');
+$response = $apiClient->delete('endpoint');
 ```
 
 ### Testing
