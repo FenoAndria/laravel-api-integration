@@ -4,11 +4,11 @@ This package provides a flexible and extendable API client to interact with any 
 
 ## Features
 
-**Dynamic Configuration** : Supports environment-based API configuration (base URL, API key).
-**Flexible HTTP Methods** : Allows GET, POST, PUT, DELETE requests with ease.
-**Extensible Design** : Easily add support for new APIs without altering the core package.
-**Service Container Integration** : Uses Laravel's service container for dependency injection and flexibility.
-**Mockable for Testing** : Easily test API responses with Guzzle mock handlers.
+- **Dynamic Configuration** : Supports environment-based API configuration (base URL, API key).
+- **Flexible HTTP Methods** : Allows GET, POST, PUT, DELETE requests with ease.
+- **Extensible Design** : Easily add support for new APIs without altering the core package.
+- **Service Container Integration** : Uses Laravel's service container for dependency injection and flexibility.
+- **Mockable for Testing** : Easily test API responses with Guzzle mock handlers.
 
 ## Installation
 
@@ -26,8 +26,8 @@ Configure the .env file
 
 Add your API credentials in your .env file:
 
-**API_BASE_URL** = https://api.yourservice.com
-**API_KEY** = your-api-key
+- **API_BASE_URL** = https://api.yourservice.com
+- **API_KEY** = your-api-key
 
 ## Usage
 Via the Service Container
